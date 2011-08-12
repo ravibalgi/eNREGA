@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-import yajl as json
-import gevent
-from gevent import local, monkey
+import simplejson as json
+#import gevent
+#from gevent import local, monkey
 from district_scraper import districtExtract
 from taluka_scraper import talukaExtract
 from panchayat_scraper import panchayatExtract
@@ -49,20 +49,34 @@ def fetch_taluka(url, district):
         dict(data.items() + global_data[district]["taluka"].items())
     else:
         global_data[district]["taluka"] = data
-    jobs = [gevent.spawn(fetch_panchayat, value['url'], district, key)
-            for key, value in data.iteritems()]
-    gevent.joinall(jobs)
+#    jobs = [gevent.spawn(fetch_panchayat, value['url'], district, key)
+#            for key, value in data.iteritems()]
+#    gevent.joinall(jobs)
+        for value in data.iteritems():
+            fetch_panchayat(url, district, value, year)
 
 
-global_data = local.local()
-data = districtExtract("http://164.100.112.66/netnrega/writereaddata/citizen"\
-                            "_out/phy_fin_reptemp_Out_18_local_1112.html")
+#global_data = local.local()
+#year 11-12
+data = districtExtract(districtyear1112, "2011")
 global_data = data
-jobs = [gevent.spawn(fetch_taluka,
-                     value["url"],
-                     key)
-        for key, value in data.iteritems()]
-gevent.joinall(jobs)
+#jobs = [gevent.spawn(fetch_taluka,
+#                     value["url"], 
+#                     key)
+#        for key, value in data.iteritems(), "2011"]
+#gevent.joinall(jobs)
+for value in data.iteritems():
+    fetch_taluka(url, value, "2011")
+#year 10-11
+data = districtExtract(districtyear1011, "2010")
+global_data = data
+#jobs = [gevent.spawn(fetch_taluka,
+#                     value["url"], 
+#                     key)
+#        for key, value in data.iteritems(), "2010"]
+#gevent.joinall(jobs)
+for value in data.iteritems():
+    fetch_taluka(url, value, "2010")
 
 f = open('database/data.json', 'w')
 output = json.dumps(global_data)
