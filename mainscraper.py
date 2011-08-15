@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import yajl as json
+import simplejson as json
 from district_scraper import districtExtract
 from taluka_scraper import talukaExtract
 from panchayat_scraper import panchayatExtract
@@ -48,8 +48,29 @@ result = districtExtract("http://164.100.112.66/netnrega/writereaddata/citizen"\
 for key, value in result.iteritems():
     result[key]["taluka"] = fetch_taluka(value["url"], key)
 
+f = open('database/data1112.json', 'w')
+output = json.dumps(result)
+print time.time() - start
+f.write(output)
+    
+result = districtExtract("http://164.100.112.66/netnrega/writereaddata/citizen_"\
+                            "out/phy_fin_reptemp_Out_18_1011.html")
 
-f = open('database/data.json', 'w')
+for key, value in result.iteritems():
+    result[key]["taluka"] = fetch_taluka(value["url"], key)
+
+f = open('database/data1011.json', 'w')
+output = json.dumps(result)
+print time.time() - start
+f.write(output)
+
+result = districtExtract("http://164.100.112.66/netnrega/writereaddata/citizen_"\
+                            "out/phy_fin_reptemp_Out_18_local_0910.html")
+
+for key, value in result.iteritems():
+    result[key]["taluka"] = fetch_taluka(value["url"], key)
+
+f = open('database/data0910.json', 'w')
 output = json.dumps(result)
 print time.time() - start
 f.write(output)
