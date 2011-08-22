@@ -63,7 +63,8 @@ def districtExtract(url):
             col_count += 1
 
         # scrapping no. of Works noWorks col: 32
-        noWorks = data_col.next.string
+
+        noWorks = data_col.findChild().findChild().string
 
         # scrapping labor expenditure col :33
         data_col = data_col.nextSibling.nextSibling
