@@ -61,6 +61,7 @@ def panchayatExtract(url):
             matExpn = data_col.next.string
             data[name] = {
                 "works_no": noWorks,
+                "code": code,
                 "labour_exp": labExpn,
                 "matExpn": matExpn}
             data_row = data_row.nextSibling

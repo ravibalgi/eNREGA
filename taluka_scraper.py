@@ -73,7 +73,10 @@ def talukaExtract(url):
                 "works_no": noWorks,
                 "labour_exp": labExpn,
                 "matExpn": matExpn,
-                "url": url}
+                "url": url,
+                "code": code
+                
+                }
             urls.append(url)
             data_row = data_row.nextSibling
         return data
