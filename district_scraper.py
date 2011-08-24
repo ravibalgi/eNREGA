@@ -50,7 +50,7 @@ def districtExtract(url):
         # district code index and value. district code is 4 characters
         index = temp_url.find("district_code=")
         index = index + 14
-        # code = temp_url[index : index + 4]
+        code = temp_url[index : index + 4]
 
         # district name is scrapped from the screen value
         name = data_col.next.string
@@ -72,7 +72,9 @@ def districtExtract(url):
         # scrapping material Expenditure col:34
         data_col = data_col.nextSibling.nextSibling
         matExpn = data_col.next.string
-        data[name] = {"works_no": noWorks,
+        data[name] = {
+                      "code":code,
+                      "works_no": noWorks,
                       "labour_exp": labExpn,
                       "matExpn": matExpn,
                       "url": url}
