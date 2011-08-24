@@ -27,7 +27,7 @@ def panchayatExtract(url):
     # first row of the required data for districts
     data_row = unwanted_row.nextSibling.nextSibling
     while data_row.td.nextSibling.nextSibling.next.string:
-        print "Panchayat %s " % (data_row.td.nextSibling.nextSibling.next.string)
+        #print "Panchayat %s " % (data_row.td.nextSibling.nextSibling.next.string)
         # assigning the value of the data_row to the data_col
         data_col = data_row
         # Pointing to the first column
@@ -51,6 +51,11 @@ def panchayatExtract(url):
             data_col = data_col.nextSibling.nextSibling
             col_count += 1
 
+        # panchayat code index and value. panchayat code is 10 characters
+        index = temp_url.find("Panchayat_code=")
+        index=index+15
+        code = temp_url[index : index + 10]
+        
         # scrapping no. of Works noWorks col: 32
         noWorks = data_col.next.string
 
@@ -62,6 +67,7 @@ def panchayatExtract(url):
         data_col = data_col.nextSibling.nextSibling
         matExpn = data_col.next.string
         data[name] = {
+            "code":code,
             "works_no": noWorks,
             "labour_exp": labExpn,
             "matExpn": matExpn}
