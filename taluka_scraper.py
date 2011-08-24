@@ -71,6 +71,7 @@ def talukaExtract(url):
         data_col = data_col.nextSibling.nextSibling
         matExpn = data_col.next.string
         data[name] = {
+            "code":code,
             "works_no": noWorks,
             "labour_exp": labExpn,
             "matExpn": matExpn,
